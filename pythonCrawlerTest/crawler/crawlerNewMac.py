@@ -6,13 +6,14 @@ import re
 import sys
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer,encoding='gb18030')
 
+
 headers = {
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
         'Accept-Encoding': 'gzip, deflate, br',
         'Accept-Language': 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7',
         'Cache-Control': 'max-age=0',
         'Connection': 'keep-alive',
-        'Cookie': 'UM_distinctid=16f03aeda951f7-0e445c640904db-12316b5a-13c680-16f03aeda96100; scopus.machineID=42A3D9C620FA39CD631B1EEC603CF6C6.wsnAw8kcdt7IPYLO0V48gA; optimizelyEndUserId=oeu1578380260234r0.24122091685022462; optimizelySegments=%7B%22278797888%22%3A%22gc%22%2C%22278846372%22%3A%22false%22%2C%22278899136%22%3A%22none%22%2C%22278903113%22%3A%22referral%22%7D; optimizelyBuckets=%7B%7D; __aza_perm=CheckPermissionCookie; optimizelyEndUserId=oeu1578380260234r0.24122091685022462; xmlHttpRequest=true; everest_g_v2=g_surferid~XhQr8gAAFPW8EsFc; optimizelyEndUserId=oeu1578380260234r0.24122091685022462; optimizelyEndUserId=oeu1578380260234r0.24122091685022462; BIDUPSID=AD4E635AC5395DE343B6AC26FE46C873; PSTM=1580807141; BAIDUID=AD4E635AC5395DE32BF32FAB36D9518E:FG=1; _abck=DBA7C3BD927B70F835EE71C7C1AF1E5C~-1~YAAQ3tfSF1Al/c5vAQAALYYZEAP3PsVEykKgNX1Z7yztci5hDgw84xn4PLHgJApP9czi1665gl9UYf3Psj8hMewsC0VJyJ4zeYaAFnDRWBRn1V6QHFRN+AM1fdPLrdjVH03rIq8N/2uegBrLK1oqeHfP7xekO3huLcT5DQyMv7AsPC8sgBewMpaTC0r3cZ/sEsFtnKPxLxmLcpMThl0AM4o5v29/QwTJkACVqtbhSrQLE82F7JdGj0DDrhRbGu2lv036FerPg1M9d2o85I5lgfJvg6xNIT42/pvnc0U=~-1~-1~-1; sp=b75e6496-3e3c-4c58-acd1-2132ecf4d70c; _hjid=941e1bc6-293c-457e-bc91-4f5fc262dc09; _sp_id.9639=2314dd85-afcb-477b-9e82-64f1b98214d6.1580818111.2.1580906938.1580818818.be135e72-19df-41f8-acff-175cc2874545; s_vi=[CS]v1|2F1F44F18515E7A7-600006E4436E96C5[CE]; demdex=31931497131425969634038488604199850452; __cfduid=d09434e0603d6a09f49dbe43c5fe05fe11583840046; _webvpn_key=eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiMjAxNzIyNDQ5MiIsImlhdCI6MTU4NTE0MDA0MSwiZXhwIjoxNTg1MjI2NDQxfQ.5pmsahTjgYdBR9jFccN9KYVxxTXk6W_jgOPMmfk6uGE; webvpn_username=2017224492%7C1585140041%7C6c7c999ae9740e60d8711985091667971a2de4a1; check=true; javaScript=true; AMCVS_4D6368F454EC41940A4C98A6%40AdobeOrg=1; AMCV_4D6368F454EC41940A4C98A6%40AdobeOrg=1266252805%7CMCIDTS%7C18347%7CMCMID%7C10178513813538045854600690115189903694%7CMCAAMLH-1585744895%7C11%7CMCAAMB-1585744895%7CRKhpRz8krg2tLO6pguXWp5olkAcUniQYPHaMWWgdJ3xzPWQmdj0y%7CMCOPTOUT-1585147295s%7CNONE%7CMCAID%7CNONE%7CMCCIDH%7C1246701492%7CMCSYNCSOP%7C411-18276%7CvVersion%7C4.4.1; screenInfo="900:1440"; SCSessionID=436DC88E29E80266A3652FF7F165C0A4.wsnAw8kcdt7IPYLO0V48gA; scopusSessionUUID=b8d1851d-03ac-4867-a; optimizelyDomainTestCookie=0.7854771117449482; optimizelyDomainTestCookie=0.8417888804482694; optimizelyDomainTestCookie=0.10612738377196229; mbox=PC#28144c226fe547c38b225004f77d29fb.22_0#1648387698|session#2eca550daf1040ea8f45ea59b90c3c1d#1585143823; s_pers=%20v8%3D1585142904276%7C1679750904276%3B%20v8_s%3DLess%2520than%25201%2520day%7C1585144704276%3B%20c19%3Dsc%253Arecord%253Aauthor%2520details%7C1585144704317%3B%20v68%3D1585142896196%7C1585144704454%3B; s_sess=%20s_cpc%3D0%3B%20c21%3Ddoi%252810.1016%252Fj.joi.2007.07.002%2529%3B%20e13%3Ddoi%252810.1016%252Fj.joi.2007.07.002%2529%253A1%3B%20c13%3Ddate%2520%2528newest%2529%3B%20e78%3Ddoi%252810.1016%252Fj.joi.2007.07.002%2529%3B%20s_sq%3D%3B%20e41%3D1%3B%20s_cc%3Dtrue%3B%20s_ppvl%3Dsc%25253Asearch%25253Adocument%252520searchform%252C27%252C27%252C338%252C1440%252C242%252C1440%252C900%252C1%252CP%3B%20s_ppv%3D%253F%3B',
+        'Cookie': 'UM_distinctid=16f03aeda951f7-0e445c640904db-12316b5a-13c680-16f03aeda96100; scopus.machineID=42A3D9C620FA39CD631B1EEC603CF6C6.wsnAw8kcdt7IPYLO0V48gA; optimizelyEndUserId=oeu1578380260234r0.24122091685022462; optimizelySegments=%7B%22278797888%22%3A%22gc%22%2C%22278846372%22%3A%22false%22%2C%22278899136%22%3A%22none%22%2C%22278903113%22%3A%22referral%22%7D; optimizelyBuckets=%7B%7D; __aza_perm=CheckPermissionCookie; optimizelyEndUserId=oeu1578380260234r0.24122091685022462; xmlHttpRequest=true; everest_g_v2=g_surferid~XhQr8gAAFPW8EsFc; optimizelyEndUserId=oeu1578380260234r0.24122091685022462; optimizelyEndUserId=oeu1578380260234r0.24122091685022462; BIDUPSID=AD4E635AC5395DE343B6AC26FE46C873; PSTM=1580807141; BAIDUID=AD4E635AC5395DE32BF32FAB36D9518E:FG=1; _abck=DBA7C3BD927B70F835EE71C7C1AF1E5C~-1~YAAQ3tfSF1Al/c5vAQAALYYZEAP3PsVEykKgNX1Z7yztci5hDgw84xn4PLHgJApP9czi1665gl9UYf3Psj8hMewsC0VJyJ4zeYaAFnDRWBRn1V6QHFRN+AM1fdPLrdjVH03rIq8N/2uegBrLK1oqeHfP7xekO3huLcT5DQyMv7AsPC8sgBewMpaTC0r3cZ/sEsFtnKPxLxmLcpMThl0AM4o5v29/QwTJkACVqtbhSrQLE82F7JdGj0DDrhRbGu2lv036FerPg1M9d2o85I5lgfJvg6xNIT42/pvnc0U=~-1~-1~-1; sp=b75e6496-3e3c-4c58-acd1-2132ecf4d70c; _hjid=941e1bc6-293c-457e-bc91-4f5fc262dc09; _sp_id.9639=2314dd85-afcb-477b-9e82-64f1b98214d6.1580818111.2.1580906938.1580818818.be135e72-19df-41f8-acff-175cc2874545; s_vi=[CS]v1|2F1F44F18515E7A7-600006E4436E96C5[CE]; demdex=31931497131425969634038488604199850452; __cfduid=d09434e0603d6a09f49dbe43c5fe05fe11583840046; _webvpn_key=eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiMjAxNzIyNDQ5MiIsImlhdCI6MTU4NTI4NzQ5NCwiZXhwIjoxNTg1MzczODk0fQ.zedcdFLb4_T0MgCDMauYTbgtStICpusAAd3UbIYv5vE; webvpn_username=2017224492%7C1585287494%7C53667e6654882e689e99c3a279b6b4d67e29a469; check=true; AMCVS_4D6368F454EC41940A4C98A6%40AdobeOrg=1; AMCV_4D6368F454EC41940A4C98A6%40AdobeOrg=1266252805%7CMCIDTS%7C18349%7CMCMID%7C10178513813538045854600690115189903694%7CMCAAMLH-1585892320%7C11%7CMCAAMB-1585892320%7CRKhpRz8krg2tLO6pguXWp5olkAcUniQYPHaMWWgdJ3xzPWQmdj0y%7CMCOPTOUT-1585294720s%7CNONE%7CMCAID%7CNONE%7CMCCIDH%7C1246701492%7CMCSYNCSOP%7C411-18276%7CvVersion%7C4.4.1; javaScript=true; screenInfo="900:1440"; s_pers=%20c19%3Dsc%253Arecord%253Adocument%2520record%7C1585290320730%3B%20v68%3D1585288463313%7C1585290321157%3B%20v8%3D1585288558068%7C1679896558068%3B%20v8_s%3DLess%2520than%25201%2520day%7C1585290358068%3B; optimizelyDomainTestCookie=0.17459408884467442; optimizelyDomainTestCookie=0.7139088739811656; optimizelyDomainTestCookie=0.9132589640713757; mbox=PC#28144c226fe547c38b225004f77d29fb.22_0#1648533391|session#9fcd336b19444670970c27f9cd618e85#1585289380; SCSessionID=F54B147690B3DF4DED28644D54864FF4.wsnAw8kcdt7IPYLO0V48gA; scopusSessionUUID=e946eb24-6383-408e-9; s_sess=%20s_cpc%3D0%3B%20e78%3Ddoi%252810.1023%252Fa%253A1017943102052%2529%3B%20s_sq%3D%3B%20c21%3Ddoi%252810.1007%252Fbf02016291%2529%3B%20e13%3Ddoi%252810.1007%252Fbf02016291%2529%253A1%3B%20c13%3Ddate%2520%2528newest%2529%3B%20e41%3D1%3B%20s_cc%3Dtrue%3B%20s_ppvl%3Dsc%25253Arecord%25253Adocument%252520record%252C10%252C10%252C425%252C1440%252C425%252C1440%252C900%252C1%252CP%3B%20s_ppv%3Dsc%25253Asearch%25253Adocument%252520results%252C22%252C22%252C425%252C1440%252C180%252C1440%252C900%252C1%252CP%3B',
         'Host': 'www-scopus-com-s.webvpn.nefu.edu.cn',
         # 'Referer': 'https://www-scopus-com-s.webvpn.nefu.edu.cn/search/form.uri?display=basic&zone=header&origin=',
         'Sec-Fetch-Dest': 'document',
@@ -24,16 +25,21 @@ headers = {
 }
 
 headerDetail = {
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
         'Accept-Encoding': 'gzip, deflate, br',
-        'Accept-Language': 'zh-CN,zh;q=0.9',
+        'Accept-Language': 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7',
         'Cache-Control': 'max-age=0',
         'Connection': 'keep-alive',
-        'Cookie': 'UM_distinctid=16f03aeda951f7-0e445c640904db-12316b5a-13c680-16f03aeda96100; scopus.machineID=42A3D9C620FA39CD631B1EEC603CF6C6.wsnAw8kcdt7IPYLO0V48gA; optimizelyEndUserId=oeu1578380260234r0.24122091685022462; optimizelySegments=%7B%22278797888%22%3A%22gc%22%2C%22278846372%22%3A%22false%22%2C%22278899136%22%3A%22none%22%2C%22278903113%22%3A%22referral%22%7D; optimizelyBuckets=%7B%7D; __aza_perm=CheckPermissionCookie; optimizelyEndUserId=oeu1578380260234r0.24122091685022462; xmlHttpRequest=true; everest_g_v2=g_surferid~XhQr8gAAFPW8EsFc; optimizelyEndUserId=oeu1578380260234r0.24122091685022462; optimizelyEndUserId=oeu1578380260234r0.24122091685022462; BIDUPSID=AD4E635AC5395DE343B6AC26FE46C873; PSTM=1580807141; BAIDUID=AD4E635AC5395DE32BF32FAB36D9518E:FG=1; _abck=DBA7C3BD927B70F835EE71C7C1AF1E5C~-1~YAAQ3tfSF1Al/c5vAQAALYYZEAP3PsVEykKgNX1Z7yztci5hDgw84xn4PLHgJApP9czi1665gl9UYf3Psj8hMewsC0VJyJ4zeYaAFnDRWBRn1V6QHFRN+AM1fdPLrdjVH03rIq8N/2uegBrLK1oqeHfP7xekO3huLcT5DQyMv7AsPC8sgBewMpaTC0r3cZ/sEsFtnKPxLxmLcpMThl0AM4o5v29/QwTJkACVqtbhSrQLE82F7JdGj0DDrhRbGu2lv036FerPg1M9d2o85I5lgfJvg6xNIT42/pvnc0U=~-1~-1~-1; sp=b75e6496-3e3c-4c58-acd1-2132ecf4d70c; _hjid=941e1bc6-293c-457e-bc91-4f5fc262dc09; _sp_id.9639=2314dd85-afcb-477b-9e82-64f1b98214d6.1580818111.2.1580906938.1580818818.be135e72-19df-41f8-acff-175cc2874545; s_vi=[CS]v1|2F1F44F18515E7A7-600006E4436E96C5[CE]; demdex=31931497131425969634038488604199850452; __cfduid=d09434e0603d6a09f49dbe43c5fe05fe11583840046; _webvpn_key=eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiMjAxNzIyNDQ5MiIsImlhdCI6MTU4NTE0MDA0MSwiZXhwIjoxNTg1MjI2NDQxfQ.5pmsahTjgYdBR9jFccN9KYVxxTXk6W_jgOPMmfk6uGE; webvpn_username=2017224492%7C1585140041%7C6c7c999ae9740e60d8711985091667971a2de4a1; check=true; javaScript=true; AMCVS_4D6368F454EC41940A4C98A6%40AdobeOrg=1; AMCV_4D6368F454EC41940A4C98A6%40AdobeOrg=1266252805%7CMCIDTS%7C18347%7CMCMID%7C10178513813538045854600690115189903694%7CMCAAMLH-1585744895%7C11%7CMCAAMB-1585744895%7CRKhpRz8krg2tLO6pguXWp5olkAcUniQYPHaMWWgdJ3xzPWQmdj0y%7CMCOPTOUT-1585147295s%7CNONE%7CMCAID%7CNONE%7CMCCIDH%7C1246701492%7CMCSYNCSOP%7C411-18276%7CvVersion%7C4.4.1; screenInfo="900:1440"; optimizelyDomainTestCookie=0.32413450486808304; optimizelyDomainTestCookie=0.4703508658427664; optimizelyDomainTestCookie=0.4599009003406236; mbox=PC#28144c226fe547c38b225004f77d29fb.22_0#1648387309|session#2eca550daf1040ea8f45ea59b90c3c1d#1585143823; s_pers=%20v8%3D1585142509113%7C1679750509113%3B%20v8_s%3DLess%2520than%25201%2520day%7C1585144309113%3B%20c19%3Dsc%253Asearch%253Adocument%2520searchform%7C1585144309147%3B%20v68%3D1585142505704%7C1585144309195%3B; SCSessionID=436DC88E29E80266A3652FF7F165C0A4.wsnAw8kcdt7IPYLO0V48gA; scopusSessionUUID=b8d1851d-03ac-4867-a; s_sess=%20s_cpc%3D0%3B%20c21%3Ddoi%252810.1016%252Fj.joi.2007.07.002%2529%3B%20e13%3Ddoi%252810.1016%252Fj.joi.2007.07.002%2529%253A1%3B%20c13%3Ddate%2520%2528newest%2529%3B%20e78%3Ddoi%252810.1016%252Fj.joi.2007.07.002%2529%3B%20s_sq%3D%3B%20s_cc%3Dtrue%3B%20e41%3D1%3B%20s_ppvl%3Dsc%25253Asearch%25253Adocument%252520searchform%252C39%252C39%252C412%252C1440%252C242%252C1440%252C900%252C1%252CP%3B%20s_ppv%3Dsc%25253Arecord%25253Adocument%252520record%252C12%252C12%252C581%252C1440%252C242%252C1440%252C900%252C1%252CP%3B',
+        'Cookie':'UM_distinctid=16f03aeda951f7-0e445c640904db-12316b5a-13c680-16f03aeda96100; scopus.machineID=42A3D9C620FA39CD631B1EEC603CF6C6.wsnAw8kcdt7IPYLO0V48gA; optimizelyEndUserId=oeu1578380260234r0.24122091685022462; optimizelySegments=%7B%22278797888%22%3A%22gc%22%2C%22278846372%22%3A%22false%22%2C%22278899136%22%3A%22none%22%2C%22278903113%22%3A%22referral%22%7D; optimizelyBuckets=%7B%7D; __aza_perm=CheckPermissionCookie; optimizelyEndUserId=oeu1578380260234r0.24122091685022462; xmlHttpRequest=true; everest_g_v2=g_surferid~XhQr8gAAFPW8EsFc; optimizelyEndUserId=oeu1578380260234r0.24122091685022462; optimizelyEndUserId=oeu1578380260234r0.24122091685022462; BIDUPSID=AD4E635AC5395DE343B6AC26FE46C873; PSTM=1580807141; BAIDUID=AD4E635AC5395DE32BF32FAB36D9518E:FG=1; _abck=DBA7C3BD927B70F835EE71C7C1AF1E5C~-1~YAAQ3tfSF1Al/c5vAQAALYYZEAP3PsVEykKgNX1Z7yztci5hDgw84xn4PLHgJApP9czi1665gl9UYf3Psj8hMewsC0VJyJ4zeYaAFnDRWBRn1V6QHFRN+AM1fdPLrdjVH03rIq8N/2uegBrLK1oqeHfP7xekO3huLcT5DQyMv7AsPC8sgBewMpaTC0r3cZ/sEsFtnKPxLxmLcpMThl0AM4o5v29/QwTJkACVqtbhSrQLE82F7JdGj0DDrhRbGu2lv036FerPg1M9d2o85I5lgfJvg6xNIT42/pvnc0U=~-1~-1~-1; sp=b75e6496-3e3c-4c58-acd1-2132ecf4d70c; _hjid=941e1bc6-293c-457e-bc91-4f5fc262dc09; _sp_id.9639=2314dd85-afcb-477b-9e82-64f1b98214d6.1580818111.2.1580906938.1580818818.be135e72-19df-41f8-acff-175cc2874545; s_vi=[CS]v1|2F1F44F18515E7A7-600006E4436E96C5[CE]; demdex=31931497131425969634038488604199850452; __cfduid=d09434e0603d6a09f49dbe43c5fe05fe11583840046; _webvpn_key=eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiMjAxNzIyNDQ5MiIsImlhdCI6MTU4NTI4NzQ5NCwiZXhwIjoxNTg1MzczODk0fQ.zedcdFLb4_T0MgCDMauYTbgtStICpusAAd3UbIYv5vE; webvpn_username=2017224492%7C1585287494%7C53667e6654882e689e99c3a279b6b4d67e29a469; check=true; AMCVS_4D6368F454EC41940A4C98A6%40AdobeOrg=1; AMCV_4D6368F454EC41940A4C98A6%40AdobeOrg=1266252805%7CMCIDTS%7C18349%7CMCMID%7C10178513813538045854600690115189903694%7CMCAAMLH-1585892320%7C11%7CMCAAMB-1585892320%7CRKhpRz8krg2tLO6pguXWp5olkAcUniQYPHaMWWgdJ3xzPWQmdj0y%7CMCOPTOUT-1585294720s%7CNONE%7CMCAID%7CNONE%7CMCCIDH%7C1246701492%7CMCSYNCSOP%7C411-18276%7CvVersion%7C4.4.1; javaScript=true; screenInfo="900:1440"; SCSessionID=F54B147690B3DF4DED28644D54864FF4.wsnAw8kcdt7IPYLO0V48gA; scopusSessionUUID=e946eb24-6383-408e-9; optimizelyDomainTestCookie=0.9301163154426892; optimizelyDomainTestCookie=0.5958843080136236; optimizelyDomainTestCookie=0.07209484506745611; mbox=PC#28144c226fe547c38b225004f77d29fb.22_0#1648534061|session#9fcd336b19444670970c27f9cd618e85#1585289380; s_pers=%20v8%3D1585289263209%7C1679897263209%3B%20v8_s%3DLess%2520than%25201%2520day%7C1585291063209%3B%20c19%3Dsc%253Ageneric%253Aerror%7C1585291063273%3B%20v68%3D1585289257573%7C1585291063427%3B; s_sess=%20s_cpc%3D0%3B%20e78%3Ddoi%252810.1023%252Fa%253A1017943102052%2529%3B%20s_sq%3D%3B%20c21%3Ddoi%252810.1007%252Fbf02016291%2529%3B%20e13%3Ddoi%252810.1007%252Fbf02016291%2529%253A1%3B%20c13%3Ddate%2520%2528newest%2529%3B%20e41%3D1%3B%20s_cc%3Dtrue%3B%20s_ppvl%3Dsc%25253Ageneric%25253Aerror%252C100%252C100%252C789%252C1440%252C789%252C1440%252C900%252C1%252CP%3B%20s_ppv%3Dsc%25253Arecord%25253Adocument%252520record%252C10%252C4%252C518%252C1440%252C180%252C1440%252C900%252C1%252CP%3B',
         'Host': 'www-scopus-com-s.webvpn.nefu.edu.cn',
         # 'Referer': 'https://www-scopus-com-s.webvpn.nefu.edu.cn/search/form.uri?display=basic&zone=header&origin=',
+        'Sec-Fetch-Dest': 'document',
+        'Sec-Fetch-Mode': 'navigate',
+        'Sec-Fetch-Site': 'same-origin',
+        'Sec-Fetch-User': '?1',
         'Upgrade-Insecure-Requests': '1',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36',
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36',
+
 }
 
 url1 = 'https://www-scopus-com-s.webvpn.nefu.edu.cn/results/results.uri?numberOfFields=0&src=s&clickedLink=&edit=&editSaveSearch=&origin=searchbasic&authorTab=&affiliationTab=&advancedTab=&scint=1&menu=search&tablin=&searchterm1='
@@ -52,7 +58,7 @@ detail2 = '&origin=resultslist&sort=plf-f&src=s&st1='
 # 10.1007
 detail3 = '%2f'
 # s11192-014-1269-8
-detail4 = '&st2=&sid=1e6d0b419dd875287a224a2fbc71ea74&sot=b&sdt=b&sl=30&s=DOI%2810.'
+detail4 = '&st2=&sid=bf43c8536b4c20bfb146383e8ae724aa&sot=b&sdt=b&sl=30&s=DOI%2810.'
 # 1007
 detail5 = '%2f'
 # s11192-014-1269-8
@@ -67,7 +73,6 @@ snip3 = '&st2=&sot=b&sdt=b&sl=30&s=DOI%28'
 snip4 = '%29&sid=f90ade8a461ec3d0e4486e0fb8eb8e48&searchId=f90ade8a461ec3d0e4486e0fb8eb8e48&txGid=7d30969d45fa0773883a37d730690f93&sort=plf-f&originationType=b&rr='
 # snip web
 snip5 = 'https://www-scopus-com-s.webvpn.nefu.edu.cn/api/rest/sources/'
-
 
 
 # def get_2016_2017(s):
@@ -86,18 +91,12 @@ snip5 = 'https://www-scopus-com-s.webvpn.nefu.edu.cn/api/rest/sources/'
 #         yin2017 = locale.atoi(yin2017.text.replace(',',''))
 #     return yin2016+yin2017
 
-def get_main_words(url):
-    page_source = requests.get(url=url, headers=headerDetail, allow_redirects=False)
-    # s = requests.Session()
-    # page_source = s.get(url, headers=headerDetail)
+def get_main_words(page_source):
     mainWords0= re.findall(r'<div class="sciTopicsVal displayNone"(.*?)</div>', page_source.text, re.S)
     mainWords = re.findall(r'"name":"(.*?)","id', str(mainWords0), re.S)
     return mainWords
 
-def get_H(url):
-    page_source = requests.get(url=url, headers=headerDetail, allow_redirects=False)
-    # s = requests.Session()
-    # page_source = s.get(url, headers=headerDetail)
+def get_H(page_source):
     H = []
     hIndexUrls0 = re.findall(r'<section id="authorlist(.*?)</section>', page_source.text, re.S)
     hIndexUrls = re.findall(r'type="hidden"><a href="(.*?)" title="', str(hIndexUrls0), re.S)
@@ -165,18 +164,20 @@ def get_excel():
     data = xlrd.open_workbook(file, formatting_info=True)
     table = data.sheet_by_name('test1')
     papers = []
-    for i in range(450,500):
+    for i in range(1,500):
         paper = {}
         content = table.row_values(i)
         paper['标题'] = content[10]
         paper['年份'] = content[11]
         paper['来源出版物名称'] = content[12]
         paper['DOI'] = content[20]
+        paper['链接'] = content[21]
         paper['EID'] = content[50]
         print(paper['标题'])
         print(paper['年份'])
         print(paper['来源出版物名称'])
         print(paper['DOI'])
+        print(paper['链接'])
         print(paper['EID'])
         papers.append(paper)
     return papers
@@ -200,175 +201,169 @@ if __name__ == '__main__':
         eid = paper['EID']
         doi = paper['DOI']
 
-        # ====================================1=====================================
-
-
+        # # ====================================1=====================================
+        #
+        #
         if doi != '':
             url = url1 + doi + url2 + doi + url3 + doi + url4
-            print(url)
             page_source = requests.get(url=url, headers=headers, allow_redirects=False)
-            # s = requests.Session()
-            # page_source = s.get(url, headers=headersSC)
-
-            # -----------------学科-------------------
-
-            subjectArea = get_subjectArea(page_source.text)
-            print("Subject area:")
-            print(subjectArea)
-            print("\n")
-
-            print(subjectArea, file=fSub, flush=True)
-            # -----------------国家-------------------
-
-            print("Country:")
-            country = get_country(page_source.text)
-            print(country)
-            print("\n")
-            print(country, file=fCoun, flush=True)
-            time.sleep(1)
-        else:
-            print('', file=fSub, flush=True)
-            print('', file=fCoun, flush=True)
-
-        # ====================================2=====================================
-
-        if doi != '' and eid !='':
-            doi1 = doi[0:7]
-            doi2 = doi[8:]
-            doi3 = doi[3:7]
-            url = detail1 + eid + detail2 + doi1 + detail3 + doi2 + detail4 + doi3  + detail5 + doi2  +detail6
-
-            # -----------------H指数-------------------
-            H = get_H(url)
-            print(H)
-            if H :
-                maxH = max(H)
-                print(int(maxH), file=fHIdex, flush=True)
-                print("H Index:")
-                print(maxH)
+            detailUrl1 = re.findall(r'<td data-type="docTitle">(.*?)</td>', page_source.text, re.S)
+            detailUrl2 = re.findall(r'href="(.*?)"class="ddmDocTitle"', str(detailUrl1), re.S)
+            if detailUrl2:
+                detailUrl = detailUrl2[0].replace('amp;','')
+                page_source = requests.get(url=detailUrl, headers=headerDetail, allow_redirects=False)
+                # -----------------H指数-------------------
+                H = get_H(page_source)
+                if H:
+                    hIndexs = []
+                    for h in H:
+                        hindex = int(h)
+                        hIndexs.append(hindex)
+                    maxH = max(hIndexs)
+                    print(maxH, file=fHIdex, flush=True)
+                    print("H Index:")
+                    print(maxH)
+                    print("\n")
+                else:
+                    print('', file=fHIdex, flush=True)
+                # -----------------主题词-------------------
+                mainWords = get_main_words(page_source)
+                print(mainWords, file=fMainWords, flush=True)
+                print("Main Words:")
+                print(mainWords)
                 print("\n")
             else:
                 print('', file=fHIdex, flush=True)
+                print('', file=fMainWords, flush=True)
             time.sleep(1)
 
-
-            # -----------------主题词-------------------
-
-            mainWords = get_main_words(url)
-            print(mainWords, file=fMainWords, flush=True)
-            print("Main Words:")
-            print(mainWords)
-            print("\n")
-            time.sleep(1)
-
-
-
+        #
+        #     # -----------------学科-------------------
+        #
+        #     subjectArea = get_subjectArea(page_source.text)
+        #     print("Subject area:")
+        #     print(subjectArea)
+        #     print("\n")
+        #
+        #     print(subjectArea, file=fSub, flush=True)
+        #     # -----------------国家-------------------
+        #
+        #     print("Country:")
+        #     country = get_country(page_source.text)
+        #     print(country)
+        #     print("\n")
+        #     print(country, file=fCoun, flush=True)
+        #     time.sleep(1)
         else:
             print('', file=fHIdex, flush=True)
             print('', file=fMainWords, flush=True)
+        #     print('', file=fSub, flush=True)
+        #     print('', file=fCoun, flush=True)
 
 
-
-
-        # # ====================================3=====================================
-        #
-        # if eid != '':
-        #     url = citationturl1 + eid + citationturl2
-        #     s = serch(url, headers)
-        #
-        #     # --------------2016_2017引用次数---------------
-        #     citation = get_2016_2017(s)
-        #     print(citation, file=fCitation, flush=True)
-        #     print("2016_2017:")
-        #     print(citation)
-        # else:
-        #     print('', file=fCitation, flush=True)
+        # # # ====================================2=====================================
         # #
+        # # if eid != '':
+        # #     url = citationturl1 + eid + citationturl2
+        # #     s = serch(url, headers)
+        # #
+        # #     # --------------2016_2017引用次数---------------
+        # #     citation = get_2016_2017(s)
+        # #     print(citation, file=fCitation, flush=True)
+        # #     print("2016_2017:")
+        # #     print(citation)
+        # # else:
+        # #     print('', file=fCitation, flush=True)
+        # # #
+        #
+        # ====================================3=====================================
+        #
+        # if doi != '':
+        #     # -----------------机构--------------------
+        #
+        #     s = 'DOI(' + doi + ')'
+        #     st1 = doi
+        #     data = {
+        #         'clusterDisplayCount': '10',
+        #         'sot': 'b',
+        #         'navigatorName': 'AFFIL',
+        #         'clusterCategory': 'selectedAffiliationClusterCategories',
+        #         'cite': '',
+        #         'refeid': '',
+        #         'refeidnss': '',
+        #         's': s,
+        #         'st1': st1,
+        #         'st2': '',
+        #         'sid': 'e635e35a50254e190a9379ccc39a7b30',
+        #         'sdt': 'b',
+        #         'sort': 'plf-f',
+        #         'citingId': '',
+        #         'citedAuthorId': '',
+        #         'listId': '',
+        #         'origin': 'resultslist',
+        #         'src': 's',
+        #         'affilCity': '',
+        #         'affilName': '',
+        #         'affilCntry': '',
+        #         'affiliationId': '',
+        #         'cluster': '',
+        #         'offset': '1',
+        #         'scla': '',
+        #         'scls': '',
+        #         'sclk': '',
+        #         'scll': '',
+        #         'sclsb': '',
+        #         'sclc': '',
+        #         'scfs': '',
+        #         'ref': '',
+        #         'isRebrandLayout': 'true',
+        #     }
+        #     rep = requests.post(
+        #         url='https://www-scopus-com-s.webvpn.nefu.edu.cn/standard/retrieveClusterAttributes.uri', data=data,
+        #         headers=headers)
+        #     affiliation = re.findall(r'class="btnText">(.*?)</span>', rep.text, re.S)
+        #     print("\nAffiliation:")
+        #     print(affiliation)
+        #     print(affiliation, file=fAffi, flush=True)
+        #     time.sleep(1)
+        # else:
+        #     print('', file=fAffi, flush=True)
 
-        # ====================================4=====================================
-
-        if doi != '':
-            # -----------------机构--------------------
-
-            s = 'DOI(' + doi + ')'
-            st1 = doi
-            data = {
-                'clusterDisplayCount': '10',
-                'sot': 'b',
-                'navigatorName': 'AFFIL',
-                'clusterCategory': 'selectedAffiliationClusterCategories',
-                'cite': '',
-                'refeid': '',
-                'refeidnss': '',
-                's': s,
-                'st1': st1,
-                'st2': '',
-                'sid': 'e635e35a50254e190a9379ccc39a7b30',
-                'sdt': 'b',
-                'sort': 'plf-f',
-                'citingId': '',
-                'citedAuthorId': '',
-                'listId': '',
-                'origin': 'resultslist',
-                'src': 's',
-                'affilCity': '',
-                'affilName': '',
-                'affilCntry': '',
-                'affiliationId': '',
-                'cluster': '',
-                'offset': '1',
-                'scla': '',
-                'scls': '',
-                'sclk': '',
-                'scll': '',
-                'sclsb': '',
-                'sclc': '',
-                'scfs': '',
-                'ref': '',
-                'isRebrandLayout': 'true',
-            }
-            rep = requests.post(
-                url='https://www-scopus-com-s.webvpn.nefu.edu.cn/standard/retrieveClusterAttributes.uri', data=data,
-                headers=headers)
-            affiliation = re.findall(r'class="btnText">(.*?)</span>', rep.text, re.S)
-            print("\nAffiliation:")
-            print(affiliation)
-            print(affiliation, file=fAffi, flush=True)
-            time.sleep(1)
-        else:
-            print('', file=fAffi, flush=True)
-
-        # ====================================5=====================================
-        if doi !='':
-            if snipSjrRpFlag == 0:
-                snipSjrRpFlag = snipSjrRpFlag + 1
-                # --------------SNIP SJR RP----------------
-                # 利用snipSjrRpFlag标识，4收2策略
-                doiSnip = doi.replace('/','%2F')
-                urlSnip0 = snip1 + doiSnip + snip2 + doiSnip  + snip3  + doiSnip + snip4
-                snipSjrRp = get_SnipSjrRp(urlSnip0)
-                if snipSjrRp:
-                    snip = snipSjrRp[0]
-                    sjr = snipSjrRp[1]
-                    rp = snipSjrRp[2]
-                    print(snip, file=fSnip, flush=True)
-                    print(sjr, file=fSjr, flush=True)
-                    print(rp, file=fRp, flush=True)
-
-                    print("SNIP:" + snip + "  SJR" + sjr +"  RJ" + rp)
-                    print("\n")
-                time.sleep(1)
-            else:
-                snipSjrRpFlag = snipSjrRpFlag + 1
-                if snipSjrRpFlag == 3:
-                    snipSjrRpFlag = 0
-                print('', file=fSnip, flush=True)
-                print('', file=fSjr, flush=True)
-                print('', file=fRp, flush=True)
-        else:
-            print('', file=fSnip, flush=True)
-            print('', file=fSjr, flush=True)
-            print('', file=fRp, flush=True)
+        # # ====================================4=====================================
+        # if doi !='':
+        #     if snipSjrRpFlag == 0:
+        #         snipSjrRpFlag = snipSjrRpFlag + 1
+        #         # --------------SNIP SJR RP----------------
+        #         # 利用snipSjrRpFlag标识，4收2策略
+        #         doiSnip = doi.replace('/','%2F')
+        #         urlSnip0 = snip1 + doiSnip + snip2 + doiSnip  + snip3  + doiSnip + snip4
+        #         snipSjrRp = get_SnipSjrRp(urlSnip0)
+        #         if snipSjrRp:
+        #             snip = snipSjrRp[0]
+        #             sjr = snipSjrRp[1]
+        #             rp = snipSjrRp[2]
+        #             print(snip, file=fSnip, flush=True)
+        #             print(sjr, file=fSjr, flush=True)
+        #             print(rp, file=fRp, flush=True)
+        #
+        #             print("SNIP:" + snip + "  SJR" + sjr +"  RJ" + rp)
+        #             print("\n")
+        #         else:
+        #             print('', file=fSnip, flush=True)
+        #             print('', file=fSjr, flush=True)
+        #             print('', file=fRp, flush=True)
+        #         time.sleep(1)
+        #     else:
+        #         snipSjrRpFlag = snipSjrRpFlag + 1
+        #         if snipSjrRpFlag == 2:
+        #             snipSjrRpFlag = 0
+        #         print('', file=fSnip, flush=True)
+        #         print('', file=fSjr, flush=True)
+        #         print('', file=fRp, flush=True)
+        # else:
+        #     print('', file=fSnip, flush=True)
+        #     print('', file=fSjr, flush=True)
+        #     print('', file=fRp, flush=True)
 
 
 
