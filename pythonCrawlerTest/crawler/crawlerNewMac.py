@@ -379,30 +379,30 @@ if __name__ == '__main__':
         #     print('', file=fAffi, flush=True)
 
         # ====================================4=====================================
-        if doi != '':
-            # --------------SNIP SJR RP----------------
-            doiSnip = doi.replace('/', '%2F')
-            urlSnip0 = snip1 + doiSnip + snip2 + doiSnip + snip3 + doiSnip + snip4
-            snipSjrRp = get_SnipSjrRpNew(urlSnip0)
-            if snipSjrRp:
-                snip = snipSjrRp[0]
-                sjr = snipSjrRp[1]
-                rp = snipSjrRp[2]
-                print(snip, file=fSnip, flush=True)
-                print(sjr, file=fSjr, flush=True)
-                print(rp, file=fRp, flush=True)
-
-                print("SNIP:" + snip + "  SJR:" + sjr + "  RJ:" + rp)
-                print("\n")
-            else:
-                print('', file=fSnip, flush=True)
-                print('', file=fSjr, flush=True)
-                print('', file=fRp, flush=True)
-            time.sleep(1)
-
-        else:
-            print('', file=fSnip, flush=True)
-            print('', file=fSjr, flush=True)
-            print('', file=fRp, flush=True)
+        # if doi != '':
+        #     # --------------SNIP SJR RP----------------
+        #     doiSnip = doi.replace('/', '%2F')
+        #     urlSnip0 = snip1 + doiSnip + snip2 + doiSnip + snip3 + doiSnip + snip4
+        #     snipSjrRp = get_SnipSjrRpNew(urlSnip0)
+        #     if snipSjrRp:
+        #         snip = snipSjrRp[0]
+        #         sjr = snipSjrRp[1]
+        #         rp = snipSjrRp[2]
+        #         print(snip, file=fSnip, flush=True)
+        #         print(sjr, file=fSjr, flush=True)
+        #         print(rp, file=fRp, flush=True)
+        #
+        #         print("SNIP:" + snip + "  SJR:" + sjr + "  RJ:" + rp)
+        #         print("\n")
+        #     else:
+        #         print('', file=fSnip, flush=True)
+        #         print('', file=fSjr, flush=True)
+        #         print('', file=fRp, flush=True)
+        #     time.sleep(1)
+        #
+        # else:
+        #     print('', file=fSnip, flush=True)
+        #     print('', file=fSjr, flush=True)
+        #     print('', file=fRp, flush=True)
 
         print("=======================================================================")
