@@ -137,8 +137,8 @@ if __name__ == '__main__':
                 dataSub['navigatorName'] = navigatorNameSub
                 dataSub['clusterCategory'] = clusterCategorySub
                 dataSub['cite'] = eid
-                if year == YEAR-1:
-                    dataSub['cluster'] = cluster_sole1 + str(YEAR+1)[0:4] + cluster_sole2
+                if year >= YEAR-1:
+                    dataSub['cluster'] = cluster_sole1 + str(YEAR-1)[0:4] + cluster_sole2
 
                 rep = requests.post(
                     url='https://www-scopus-com-s.webvpn.nefu.edu.cn/standard/viewMore.uri', data=dataSub,
@@ -155,8 +155,8 @@ if __name__ == '__main__':
                 dataSource['navigatorName'] = navigatorNameSource
                 dataSource['clusterCategory'] = clusterCategorySource
                 dataSource['cite'] = eid
-                if year == YEAR-1:
-                    dataSource['cluster'] = cluster_sole1 + str(YEAR+1)[0:4] + cluster_sole2
+                if year >= YEAR-1:
+                    dataSource['cluster'] = cluster_sole1 + str(YEAR-1)[0:4] + cluster_sole2
 
                 rep = requests.post(
                     url='https://www-scopus-com-s.webvpn.nefu.edu.cn/standard/viewMore.uri', data=dataSource,
@@ -173,8 +173,8 @@ if __name__ == '__main__':
                 dataAffi['navigatorName'] = navigatorNameAffi
                 dataAffi['clusterCategory'] = clusterCategoryAffi
                 dataAffi['cite'] = eid
-                if year == YEAR-1:
-                    dataAffi['cluster'] = cluster_sole1 + str(YEAR+1)[0:4] + cluster_sole2
+                if year >= YEAR-1:
+                    dataAffi['cluster'] = cluster_sole1 + str(YEAR-1)[0:4] + cluster_sole2
 
                 rep = requests.post(
                     url='https://www-scopus-com-s.webvpn.nefu.edu.cn/standard/viewMore.uri', data=dataAffi,
@@ -190,8 +190,8 @@ if __name__ == '__main__':
                 dataCoun['navigatorName'] = navigatorNameCoun
                 dataCoun['clusterCategory'] = clusterCategoryCoun
                 dataCoun['cite'] = eid
-                if year == YEAR-1:
-                    dataCoun['cluster'] = cluster_sole1 + str(YEAR+1)[0:4] + cluster_sole2
+                if year >= YEAR-1:
+                    dataCoun['cluster'] = cluster_sole1 + str(YEAR-1)[0:4] + cluster_sole2
 
                 rep = requests.post(
                     url='https://www-scopus-com-s.webvpn.nefu.edu.cn/standard/viewMore.uri', data=dataCoun,
@@ -207,7 +207,7 @@ if __name__ == '__main__':
                 if year >= YEAR-1:
                     url = u1_sole + eid + u2_sole + str(YEAR-1)[0:4] + u3_sole
                 else:
-                    url = u1 + eid + u2 + str(year-2)[0:4] + u3 + str(year-1)[0:4] + u4
+                    url = u1 + eid + u2 + str(YEAR-2)[0:4] + u3 + str(YEAR-1)[0:4] + u4
                 print(url)
                 page_source = requests.get(url=url, headers=headers, allow_redirects=False)
                 count = re.findall(r'<span class="resultsCount">\n(.*?)\n</span>', page_source.text, re.S)
