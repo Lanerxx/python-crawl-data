@@ -6,24 +6,22 @@ import re
 import sys
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer,encoding='gb18030')
 
-YEAR = 2018
+YEAR = 2019
 
 headers = {
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
-        'Accept-Encoding': 'gzip, deflate, br',
-        'Accept-Language': 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7',
-        'Cache-Control': 'max-age=0',
-        'Connection': 'keep-alive',
-        'Cookie': 'UM_distinctid=16f03aeda951f7-0e445c640904db-12316b5a-13c680-16f03aeda96100; scopus.machineID=42A3D9C620FA39CD631B1EEC603CF6C6.wsnAw8kcdt7IPYLO0V48gA; optimizelyEndUserId=oeu1578380260234r0.24122091685022462; optimizelySegments=%7B%22278797888%22%3A%22gc%22%2C%22278846372%22%3A%22false%22%2C%22278899136%22%3A%22none%22%2C%22278903113%22%3A%22referral%22%7D; optimizelyBuckets=%7B%7D; __aza_perm=CheckPermissionCookie; optimizelyEndUserId=oeu1578380260234r0.24122091685022462; uuid2=341871610905020489; xmlHttpRequest=true; everest_g_v2=g_surferid~XhQr8gAAFPW8EsFc; dpm=10213765694604764764599412911321458779; optimizelyEndUserId=oeu1578380260234r0.24122091685022462; optimizelyEndUserId=oeu1578380260234r0.24122091685022462; BIDUPSID=AD4E635AC5395DE343B6AC26FE46C873; PSTM=1580807141; BAIDUID=AD4E635AC5395DE32BF32FAB36D9518E:FG=1; _abck=DBA7C3BD927B70F835EE71C7C1AF1E5C~-1~YAAQ3tfSF1Al/c5vAQAALYYZEAP3PsVEykKgNX1Z7yztci5hDgw84xn4PLHgJApP9czi1665gl9UYf3Psj8hMewsC0VJyJ4zeYaAFnDRWBRn1V6QHFRN+AM1fdPLrdjVH03rIq8N/2uegBrLK1oqeHfP7xekO3huLcT5DQyMv7AsPC8sgBewMpaTC0r3cZ/sEsFtnKPxLxmLcpMThl0AM4o5v29/QwTJkACVqtbhSrQLE82F7JdGj0DDrhRbGu2lv036FerPg1M9d2o85I5lgfJvg6xNIT42/pvnc0U=~-1~-1~-1; sp=b75e6496-3e3c-4c58-acd1-2132ecf4d70c; _hjid=941e1bc6-293c-457e-bc91-4f5fc262dc09; _sp_id.9639=2314dd85-afcb-477b-9e82-64f1b98214d6.1580818111.2.1580906938.1580818818.be135e72-19df-41f8-acff-175cc2874545; s_vi=[CS]v1|2F1F44F18515E7A7-600006E4436E96C5[CE]; demdex=31931497131425969634038488604199850452; __cfduid=d09434e0603d6a09f49dbe43c5fe05fe11583840046; _webvpn_key=eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiMjAxNzIyNDQ5MiIsImlhdCI6MTU4NjIyNjA2NCwiZXhwIjoxNTg2MzEyNDY0fQ.o8KdjXmm-4Vs4MNpm7Fl9yPn-4kh1W1qm4tRH09B1t4; webvpn_username=2017224492%7C1586226064%7C5892f2849f2713d6a80af656684661ba3335eff4; SCSessionID=C2D8D69C299263DE9C6EA3DD37A5FE70.wsnAw8kcdt7IPYLO0V48gA; scopusSessionUUID=7bdf64c8-ece3-448e-a; AWSELB=CB9317D502BF07938DE10C841E762B7A33C19AADB19085C425913A3034C76248040A0A2889B36648550CEEFD4DA2A10689763AB5F110BA32070D9964CEACBAE7C5777723B7C0687171C5E3AEA992A6031746228962; optimizelyDomainTestCookie=0.16990931358182393; optimizelyDomainTestCookie=0.7819278195402721; optimizelyDomainTestCookie=0.8520839481809279; check=true; javaScript=true; anj=dTM7k!M4/8F7/.XF\']wIg2IliwTJCJ!p[]8M+1GW]rh8xrNvyMP-HC_P-kDt!?3<!ik=DN; mbox=PC#28144c226fe547c38b225004f77d29fb.22_0#1649470894|session#809f4cba75424967a44770e403068a76#1586227948; AMCVS_4D6368F454EC41940A4C98A6%40AdobeOrg=1; AMCV_4D6368F454EC41940A4C98A6%40AdobeOrg=1266252805%7CMCIDTS%7C18359%7CMCMID%7C10178513813538045854600690115189903694%7CMCAAMLH-1586830894%7C11%7CMCAAMB-1586830894%7CRKhpRz8krg2tLO6pguXWp5olkAcUniQYPHaMWWgdJ3xzPWQmdj0y%7CMCOPTOUT-1586233294s%7CNONE%7CMCAID%7CNONE%7CMCSYNCSOP%7C411-18276%7CvVersion%7C4.4.1%7CMCCIDH%7C1246701492; s_pers=%20v8%3D1586226095244%7C1680834095244%3B%20v8_s%3DLess%2520than%25201%2520day%7C1586227895244%3B%20c19%3Dsc%253Asearch%253Adocument%2520searchform%7C1586227895281%3B%20v68%3D1586226091543%7C1586227895433%3B; ev_sync_dd=20200407; optimizelyPendingLogEvents=%5B%5D; s_sess=%20s_cpc%3D1%3B%20s_cc%3Dtrue%3B%20s_ppvl%3D%3B%20e41%3D1%3B%20s_ppv%3Dsc%25253Asearch%25253Adocument%252520searchform%252C75%252C75%252C789%252C1440%252C199%252C1440%252C900%252C1%252CP%3B',
-        'Host': 'www-scopus-com-s.webvpn.nefu.edu.cn',
-        # 'Referer': 'https://www-scopus-com-s.webvpn.nefu.edu.cn/search/form.uri?display=basic&zone=header&origin=',
-        'Sec-Fetch-Dest': 'document',
-        'Sec-Fetch-Mode': 'navigate',
-        'Sec-Fetch-Site': 'same-site',
-        'Sec-Fetch-User': '?1',
-        'Upgrade-Insecure-Requests': '1',
-        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36',
+        'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+        'accept-encoding': 'gzip, deflate, br',
+        'accept-language': 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7',
+        'cache-control': 'max-age=0',
+        'cookie': '__cfduid=db07216da5aea75c154e5e7236d421c3f1587562810; scopus.machineID=565E426BB5379DC87C63C542901909C3.wsnAw8kcdt7IPYLO0V48gA; optimizelyEndUserId=oeu1587562861883r0.38711136738597673; optimizelySegments=%7B%22278797888%22%3A%22gc%22%2C%22278846372%22%3A%22false%22%2C%22278899136%22%3A%22none%22%2C%22278903113%22%3A%22referral%22%7D; optimizelyBuckets=%7B%7D; xmlHttpRequest=true; SCSessionID=1E49E1422F25B2F066355053997CDB61.wsnAw8kcdt7IPYLO0V48gA; scopusSessionUUID=e7885c7c-52fb-4ad2-8; AWSELB=CB9317D502BF07938DE10C841E762B7A33C19AADB15C6A53A420067583F4AB365B8A659D4CC7A45CE51B5BDE8F46CCE6ED53979D6BBAFDF2ADE925350150D7900CAD0CA8A6F3E74256BFBB0204C4FFD656B3875BFA; check=true; javaScript=true; AMCVS_4D6368F454EC41940A4C98A6%40AdobeOrg=1; optimizelyPendingLogEvents=%5B%5D; mbox=PC#7f4649f1b841468a940386570b585808.22_0#1651563765|session#116fdb0bda344ae5aa132d4c1dde49b5#1588320791; screenInfo="900:1440"; s_pers=%20v8%3D1588318968851%7C1682926968851%3B%20v8_s%3DLess%2520than%25207%2520days%7C1588320768851%3B%20c19%3Dsc%253Asearch%253Adocument%2520searchform%7C1588320768879%3B%20v68%3D1588318961677%7C1588320768991%3B; AMCV_4D6368F454EC41940A4C98A6%40AdobeOrg=1075005958%7CMCIDTS%7C18384%7CMCMID%7C09635205066540933810671114848219444600%7CMCAAMLH-1588923769%7C11%7CMCAAMB-1588923769%7CRKhpRz8krg2tLO6pguXWp5olkAcUniQYPHaMWWgdJ3xzPWQmdj0y%7CMCOPTOUT-1588326169s%7CNONE%7CMCAID%7CNONE%7CMCSYNCSOP%7C411-18382%7CMCCIDH%7C1249006796%7CvVersion%7C4.4.1; s_sess=%20s_sq%3D%3B%20s_ppvl%3D%3B%20e41%3D1%3B%20s_cpc%3D0%3B%20s_cc%3Dtrue%3B%20s_ppv%3Dsc%25253Asearch%25253Adocument%252520searchform%252C70%252C70%252C740%252C1440%252C306%252C1440%252C900%252C1%252CP%3B',
+        'sec-fetch-dest': 'document',
+        'sec-fetch-mode': 'navigate',
+        'sec-fetch-site': 'cross-site',
+        'sec-fetch-user': '?1',
+        'upgrade-insecure-requests': '1',
+        'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Safari/537.36',
 }
+
 
 data = {
     'clusterDisplayCount': '160',
@@ -82,7 +80,7 @@ cluster3 = '\",t'
 cluster_sole1 = 'scopubyr,\"'
 cluster_sole2 = '\",t'
 
-u1 = 'https://www-scopus-com-s.webvpn.nefu.edu.cn/results/citedbyresults.uri?sort=plf-f&cite='
+u1 = 'https://www.scopus.com/results/citedbyresults.uri?sort=plf-f&cite='
 # 2-s2.0-34249309179
 u2 = '&src=s&nlo=&nlr=&nls=&imp=t&sid=6e6e378fd1ca34b491c59fa079886305&sot=cite&sdt=cl&cluster=scopubyr%2C%22'
 # 2008
@@ -91,7 +89,7 @@ u3 = '%22%2Ct%2C%22'
 u4 = '%22%2Ct&sl=0&origin=resultslist&zone=leftSideBar&editSaveSearch=&txGid='
 
 
-u1_sole = 'https://www-scopus-com-s.webvpn.nefu.edu.cn/results/citedbyresults.uri?sort=plf-f&cite='
+u1_sole = 'https://www.scopus.com/results/citedbyresults.uri?sort=plf-f&cite='
 # 2-s2.0-34249309179
 u2_sole = '&src=s&nlo=&nlr=&nls=&imp=t&sid=b5cb8e30a8dc7e290b6e70f99e76daec&sot=cite&sdt=cl&cluster=scopubyr%2C%22'
 # 2017
@@ -99,18 +97,23 @@ u3_sole = '%22%2Ct&sl=0&origin=resultslist&zone=leftSideBar&editSaveSearch=&txGi
 
 
 def get_excel():
-    file = "../sourceData/a1-10.xls"
+    file = "../sourceData/a种子文献.xls"
     data = xlrd.open_workbook(file, formatting_info=True)
-    table = data.sheet_by_name('引用文献')
+    table = data.sheet_by_name('1')
     papers = []
-    for i in range(1,4):
+    for i in range(1,51):
         paper = {}
         content = table.row_values(i)
-        paper['标题'] = content[4]
-        paper['年份'] = content[5]
-        paper['EID'] = content[44]
+        paper['序号'] = content[0]
+        paper['标题'] = content[3]
+        paper['年份'] = content[4]
+        paper['来源出版物名称'] = content[5]
+        paper['DOI'] = content[13]
+        paper['EID'] = content[43]
         print(paper['标题'])
         print(paper['年份'])
+        print(paper['来源出版物名称'])
+        print(paper['DOI'])
         print(paper['EID'])
         papers.append(paper)
     return papers
@@ -141,7 +144,7 @@ if __name__ == '__main__':
                     dataSub['cluster'] = cluster_sole1 + str(YEAR-1)[0:4] + cluster_sole2
 
                 rep = requests.post(
-                    url='https://www-scopus-com-s.webvpn.nefu.edu.cn/standard/viewMore.uri', data=dataSub,
+                    url='https://www.scopus.com/standard/viewMore.uri', data=dataSub,
                     headers=headers)
                 latelySub0 = re.findall(r'btnText\\">(.*?)<', rep.text, re.S)
                 print("\nlatelySub:")
@@ -159,7 +162,7 @@ if __name__ == '__main__':
                     dataSource['cluster'] = cluster_sole1 + str(YEAR-1)[0:4] + cluster_sole2
 
                 rep = requests.post(
-                    url='https://www-scopus-com-s.webvpn.nefu.edu.cn/standard/viewMore.uri', data=dataSource,
+                    url='https://www.scopus.com/standard/viewMore.uri', data=dataSource,
                     headers=headers)
                 latelySource0 = re.findall(r'btnText\\">(.*?)<', rep.text, re.S)
                 print("\nlatelySource:")
@@ -177,7 +180,7 @@ if __name__ == '__main__':
                     dataAffi['cluster'] = cluster_sole1 + str(YEAR-1)[0:4] + cluster_sole2
 
                 rep = requests.post(
-                    url='https://www-scopus-com-s.webvpn.nefu.edu.cn/standard/viewMore.uri', data=dataAffi,
+                    url='https://www.scopus.com/standard/viewMore.uri', data=dataAffi,
                     headers=headers)
                 latelyAffi0 = re.findall(r'btnText\\">(.*?)<', rep.text, re.S)
                 print("\nlatelyAffi:")
@@ -194,7 +197,7 @@ if __name__ == '__main__':
                     dataCoun['cluster'] = cluster_sole1 + str(YEAR-1)[0:4] + cluster_sole2
 
                 rep = requests.post(
-                    url='https://www-scopus-com-s.webvpn.nefu.edu.cn/standard/viewMore.uri', data=dataCoun,
+                    url='https://www.scopus.com/standard/viewMore.uri', data=dataCoun,
                     headers=headers)
                 latelyCoun0 = re.findall(r'btnText\\">(.*?)<', rep.text, re.S)
                 print("\nlatelyCoun:")
