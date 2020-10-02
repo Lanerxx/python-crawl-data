@@ -1,18 +1,20 @@
 import urllib.request
+
+import xlwt
 from bs4 import BeautifulSoup
 import requests
 import xlrd
 import time
 import re
 
-YEAR = 2019
+YEAR = 2018
 
 headers = {
         'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
         'accept-encoding': 'gzip, deflate, br',
         'accept-language': 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7',
         'cache-control': 'max-age=0',
-        'cookie': '__cfduid=db07216da5aea75c154e5e7236d421c3f1587562810; scopus.machineID=565E426BB5379DC87C63C542901909C3.wsnAw8kcdt7IPYLO0V48gA; optimizelyEndUserId=oeu1587562861883r0.38711136738597673; optimizelySegments=%7B%22278797888%22%3A%22gc%22%2C%22278846372%22%3A%22false%22%2C%22278899136%22%3A%22none%22%2C%22278903113%22%3A%22referral%22%7D; optimizelyBuckets=%7B%7D; xmlHttpRequest=true; SCSessionID=1E49E1422F25B2F066355053997CDB61.wsnAw8kcdt7IPYLO0V48gA; scopusSessionUUID=e7885c7c-52fb-4ad2-8; AWSELB=CB9317D502BF07938DE10C841E762B7A33C19AADB15C6A53A420067583F4AB365B8A659D4CC7A45CE51B5BDE8F46CCE6ED53979D6BBAFDF2ADE925350150D7900CAD0CA8A6F3E74256BFBB0204C4FFD656B3875BFA; check=true; javaScript=true; AMCVS_4D6368F454EC41940A4C98A6%40AdobeOrg=1; optimizelyPendingLogEvents=%5B%5D; mbox=PC#7f4649f1b841468a940386570b585808.22_0#1651563765|session#116fdb0bda344ae5aa132d4c1dde49b5#1588320791; screenInfo="900:1440"; s_pers=%20v8%3D1588318968851%7C1682926968851%3B%20v8_s%3DLess%2520than%25207%2520days%7C1588320768851%3B%20c19%3Dsc%253Asearch%253Adocument%2520searchform%7C1588320768879%3B%20v68%3D1588318961677%7C1588320768991%3B; AMCV_4D6368F454EC41940A4C98A6%40AdobeOrg=1075005958%7CMCIDTS%7C18384%7CMCMID%7C09635205066540933810671114848219444600%7CMCAAMLH-1588923769%7C11%7CMCAAMB-1588923769%7CRKhpRz8krg2tLO6pguXWp5olkAcUniQYPHaMWWgdJ3xzPWQmdj0y%7CMCOPTOUT-1588326169s%7CNONE%7CMCAID%7CNONE%7CMCSYNCSOP%7C411-18382%7CMCCIDH%7C1249006796%7CvVersion%7C4.4.1; s_sess=%20s_sq%3D%3B%20s_ppvl%3D%3B%20e41%3D1%3B%20s_cpc%3D0%3B%20s_cc%3Dtrue%3B%20s_ppv%3Dsc%25253Asearch%25253Adocument%252520searchform%252C70%252C70%252C740%252C1440%252C306%252C1440%252C900%252C1%252CP%3B',
+        'cookie': 'scopus.machineID=565E426BB5379DC87C63C542901909C3.wsnAw8kcdt7IPYLO0V48gA; optimizelyEndUserId=oeu1587562861883r0.38711136738597673; optimizelySegments=%7B%22278797888%22%3A%22gc%22%2C%22278846372%22%3A%22false%22%2C%22278899136%22%3A%22none%22%2C%22278903113%22%3A%22referral%22%7D; optimizelyBuckets=%7B%7D; xmlHttpRequest=true; __cfduid=d954c5c2b9549289b92a76b614def85111601106950; SCSessionID=F487184E3381B0766E92A9222F236F9B.i-0e67e3b3089173990; scopusSessionUUID=aa0d981c-0199-44d1-9; AWSELB=CB9317D502BF07938DE10C841E762B7A33C19AADB18CDB063B58CC42E0DB2D5375A980599FBAFC9ED2DBE86A696ED76959032F54EEA31AAC5A6BDE3E4B4DACF34F3854CEEBA855375B6C8861506D27AB7E080049E0; javaScript=true; at_check=true; AMCVS_4D6368F454EC41940A4C98A6%40AdobeOrg=1; screenInfo="900:1440"; __cfruid=e68a72d397aed1f18236931ed466a6a43812a8d5-1601637087; AMCV_4D6368F454EC41940A4C98A6%40AdobeOrg=359503849%7CMCIDTS%7C18538%7CMCMID%7C09635205066540933810671114848219444600%7CMCAAMLH-1602252505%7C11%7CMCAAMB-1602252505%7CRKhpRz8krg2tLO6pguXWp5olkAcUniQYPHaMWWgdJ3xzPWQmdj0y%7CMCOPTOUT-1601654905s%7CNONE%7CMCAID%7CNONE%7CMCSYNCSOP%7C411-18382%7CvVersion%7C5.0.1%7CMCCIDH%7C1246701492; mbox=PC#7f4649f1b841468a940386570b585808.38_0#1664892541|session#02b34dfe7f46499990df73c81e6bab74#1601649557; s_pers=%20v8%3D1601647742995%7C1696255742995%3B%20v8_s%3DLess%2520than%25201%2520day%7C1601649542995%3B%20c19%3Dsc%253Asearch%253Adocument%2520searchform%7C1601649543007%3B%20v68%3D1601647741421%7C1601649543018%3B; s_sess=%20s_cpc%3D0%3B%20e78%3Dtitle%2528characteristics%2520of%2520gender%2520studies%2520publications%253A%2520a%2520bibliometric%2520analysis%2520based%2520on%2520a%2520swedish%2520population%2520database%2529%3B%20c21%3Dtitle%2528questionable%2520university-sponsored%2520supplements%2520in%2520high-impact%2520journals%2529%3B%20e13%3Dtitle%2528questionable%2520university-sponsored%2520supplements%2520in%2520high-impact%2520journals%2529%253A1%3B%20c13%3Ddate%2520%2528oldest%2529%3B%20s_sq%3D%3B%20s_cc%3Dtrue%3B%20e41%3D1%3B%20s_ppvl%3Dsc%25253Asearch%25253Adocument%252520searchform%252C49%252C49%252C740%252C1440%252C740%252C1440%252C900%252C1%252CP%3B%20s_ppv%3Dsc%25253Asearch%25253Adocument%252520searchform%252C49%252C49%252C740%252C1440%252C177%252C1440%252C900%252C1%252CP%3B',
         'sec-fetch-dest': 'document',
         'sec-fetch-mode': 'navigate',
         'sec-fetch-site': 'cross-site',
@@ -101,27 +103,33 @@ def serch(url,headers):
     s = BeautifulSoup(html, 'html.parser')
     return s
 
-def get_excel():
-    file = "../sourceData/a种子文献.xls"
+def get_excel(indexStart,indexEnd):
+    file = "../sourceData/2015待推荐文献.xls"
     data = xlrd.open_workbook(file, formatting_info=True)
     table = data.sheet_by_name('1')
     papers = []
-    for i in range(1,51):
+    for i in range(indexStart,indexEnd):
         paper = {}
         content = table.row_values(i)
-        paper['序号'] = content[0]
         paper['标题'] = content[3]
         paper['年份'] = content[4]
         paper['来源出版物名称'] = content[5]
         paper['DOI'] = content[13]
         paper['EID'] = content[43]
+        print(i+1)
         print(paper['标题'])
-        print(paper['年份'])
-        print(paper['来源出版物名称'])
-        print(paper['DOI'])
-        print(paper['EID'])
         papers.append(paper)
+
     return papers
+
+def get_data_excel_head(dataSheet):
+    dataSheet.write(0, 0, '序号')
+    dataSheet.write(0, 1, '标题')
+    dataSheet.write(0, 2, '早两年被引次数')
+    dataSheet.write(0, 3, '早两年被引学科数')
+    dataSheet.write(0, 4, '早两年来源出版物数')
+    dataSheet.write(0, 5, '早两年被引机构数')
+    dataSheet.write(0, 6, '早两年被引国家数')
 
 def get_subjectArea(page_source):
     subData0 = re.findall(r'<label class="checkbox-label" for=\'cat_SUBJAREA(.*?)\n</label>', page_source, re.S)
@@ -140,16 +148,29 @@ def get_source(page_source):
 
 if __name__ == '__main__':
 
-    papers = get_excel()
-    fEarlyCitation = open('../data/earlyCit.txt', 'w')
-    fEarlySub = open('../data/earlySub.txt', 'w')
-    fEarlySource = open('../data/earlySource.txt', 'w')
-    fEarlyAffi = open('../data/earlyAffi.txt', 'w')
-    fEarlyCoun = open('../data/earlyCoun.txt', 'w')
+    # 设置收集起始序号
+    indexStart = 1
+    indexEnd = 5
 
+    # 获取代收数据
+    papers = get_excel(indexStart, indexEnd)
+
+    # 创建收取数据文件
+    fileName = '../data/' + str(indexStart) + '-' + str(indexEnd) + '早两年特征收取结果.xls'
+    print(fileName)
+    writebook = xlwt.Workbook()  # 打开excel
+    dataSheet = writebook.add_sheet('data')  # 添加一个名字叫data的sheet
+    # 写入表头，方便查阅
+    get_data_excel_head(dataSheet)
+    writebook.save(fileName)
+
+    # 初始化数据
+    index = indexStart
     for paper in papers:
         eid = paper['EID']
         year = paper['年份']
+        dataSheet.write(index, 0, index)
+        dataSheet.write(index, 1, paper['标题'])
 
         # ====================================1=====================================
 
@@ -165,9 +186,9 @@ if __name__ == '__main__':
             print("earlyCites:")
             if count:
                 print(count[0])
-                print(count[0], file=fEarlyCitation, flush=True)
+                dataSheet.write(index, 2, count[0])
             else:
-                print('', file=fEarlyCitation, flush=True)
+                dataSheet.write(index, 2, 0)
             print("\n")
             # -----------------学科-------------------
 
@@ -192,7 +213,7 @@ if __name__ == '__main__':
             print(subjectArea)
             print(earlySub)
             print("\n")
-            print(earlySub, file=fEarlySub, flush=True)
+            dataSheet.write(index, 3, earlySub)
             time.sleep(1)
 
             # -----------------来源-------------------
@@ -220,7 +241,7 @@ if __name__ == '__main__':
             print(source)
             print(earlySource)
             print("\n")
-            print(earlySource, file=fEarlySource, flush=True)
+            dataSheet.write(index, 4, earlySource)
             time.sleep(1)
 
             # -----------------机构-------------------
@@ -242,7 +263,7 @@ if __name__ == '__main__':
             print(affilication)
             print(earlyAffi)
             print("\n")
-            print(earlyAffi, file=fEarlyAffi, flush=True)
+            dataSheet.write(index, 5, earlyAffi)
             time.sleep(1)
 
             # -----------------国家-------------------
@@ -270,18 +291,18 @@ if __name__ == '__main__':
             print(country)
             print(earlyCoun)
             print("\n")
-            print(earlyCoun, file=fEarlyCoun, flush=True)
+            dataSheet.write(index, 6, earlyCoun)
             time.sleep(1)
 
         else:
-            print('', file=fEarlyCitation, flush=True)
-            print('', file=fEarlySub, flush=True)
-            print('', file=fEarlySource, flush=True)
-            print('', file=fEarlyAffi, flush=True)
-            print('', file=fEarlyCoun, flush=True)
+            dataSheet.write(index, 2, 0)
+            dataSheet.write(index, 3, 0)
+            dataSheet.write(index, 4, 0)
+            dataSheet.write(index, 5, 0)
+            dataSheet.write(index, 6, 0)
 
-
-
+        index = index + 1
+        writebook.save(fileName)
         print("=======================================================================")
 
 
