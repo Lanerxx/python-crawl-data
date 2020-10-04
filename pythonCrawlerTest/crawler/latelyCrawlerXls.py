@@ -105,6 +105,7 @@ def get_excel(indexStart,indexEnd):
     for i in range(indexStart,indexEnd):
         paper = {}
         content = table.row_values(i)
+        paper['序号'] = content[0]
         paper['标题'] = content[3]
         paper['年份'] = content[4]
         paper['来源出版物名称'] = content[5]
@@ -127,8 +128,8 @@ def get_data_excel_head(dataSheet):
 
 if __name__ == '__main__':
     # 设置收集起始序号
-    indexStart = 1
-    indexEnd = 5
+    indexStart = 211
+    indexEnd = 328
 
     # 获取代收数据
     papers = get_excel(indexStart,indexEnd)
@@ -143,15 +144,15 @@ if __name__ == '__main__':
     writebook.save(fileName)
 
     # 初始化数据
-    index = indexStart
+    index = 1
     data['cluster'] = cluster1 + str(YEAR - 2)[0:4] + cluster2 + str(YEAR - 1)[0:4] + cluster3
 
     for paper in papers:
         eid = paper['EID']
         year = paper['年份']
-        dataSheet.write(index, 0, index)
+        dataSheet.write(index, 0, paper['序号'])
         dataSheet.write(index, 1, paper['标题'])
-
+        writebook.save(fileName)
         if eid != '':
              # -----------------学科-------------------
                 dataSub = data
